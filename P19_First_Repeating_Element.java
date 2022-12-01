@@ -10,32 +10,60 @@ public class P19_First_Repeating_Element {
         // Your code here
 
         // Approach - 1  --> Time Complexity O(n)  Space Complexity --> O(n)
-        int firstRepeated = Integer.MAX_VALUE;
+        // int firstRepeated = Integer.MAX_VALUE;
 
-        ArrayList<Integer> ansArr = new ArrayList<>();
+        // ArrayList<Integer> ansArr = new ArrayList<>();
 
 
+        // for(int i=0; i<n; i++){
+        //     ansArr.add(arr[i]);
+        // }
+
+        // for(int i=0; i<n; i++){
+        //     if(ansArr.indexOf(arr[i]) == ansArr.lastIndexOf(arr[i])){
+
+        //     }
+        //     else{
+        //         if(firstRepeated > ansArr.indexOf(arr[i])){
+        //             firstRepeated = ansArr.indexOf(arr[i]);
+        //         }
+        //     }
+        // }
+
+        // if(firstRepeated > n){
+        //     firstRepeated = -1;
+        //     return firstRepeated;
+        // }
+
+        // return (firstRepeated+1);
+
+
+
+        // Approach 2: --> Time Complexity O(n)  Space Complexity --> O(n)
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        // Store all the elements of the array in the map
         for(int i=0; i<n; i++){
-            ansArr.add(arr[i]);
-        }
-
-        for(int i=0; i<n; i++){
-            if(ansArr.indexOf(arr[i]) == ansArr.lastIndexOf(arr[i])){
-
+            if(map.containsKey(arr[i])){
+                map.put(arr[i], map.get(arr[i])+1);
             }
             else{
-                if(firstRepeated > ansArr.indexOf(arr[i])){
-                    firstRepeated = ansArr.indexOf(arr[i]);
-                }
+                map.put(arr[i], 1);
             }
         }
 
-        if(firstRepeated > n){
-            firstRepeated = -1;
-            return firstRepeated;
+        // Now check from starting of the array which first element has iteration more than 1
+        for(int i=0; i<n; i++){
+            int key = arr[i];
+
+            int iteration = map.get(arr[i]);
+
+            if(iteration > 1){
+                return (i+1);
+            }
         }
 
-        return (firstRepeated+1);
+        return -1;
     }
 
     public static void main(String[] args) {
