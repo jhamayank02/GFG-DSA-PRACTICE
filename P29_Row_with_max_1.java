@@ -3,7 +3,7 @@ public class P29_Row_with_max_1 {
     public static int rowWithMax1s(int arr[][], int n, int m) {
         // code here
 
-        // Approach 1 --> Time Complexity - O(n*m)
+        // Approach 1 --> Time Complexity - O(n*m) - O(n) [m is constant]
         int result = -1;
         int no_of_1 = 0;
 
