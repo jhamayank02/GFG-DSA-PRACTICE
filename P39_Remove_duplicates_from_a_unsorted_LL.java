@@ -78,43 +78,42 @@ public class P39_Remove_duplicates_from_a_unsorted_LL {
             return;
         }
 
-        Node temp = head;
+        Node current = head;
         Node prev = null;
 
         HashMap<Integer, Boolean> map = new HashMap<>();
 
-        while(temp != null){
+        while(current != null){
 
-            if(map.get(temp.data) == null){
-                map.put(temp.data, true);
-                prev = temp;
-                temp = temp.next;
+            if(map.get(current.data) == null){
+                map.put(current.data, true);
+                prev = current;
+                current = current.next;
             }
             else{
-                System.out.println("Removed " + temp.data);
-                // if(temp.next == null){
-                //     temp.next = null;
-                //     break;
-                // }
-                prev.next = temp.next;
-                prev = temp;
-                if(temp.next == null){
-                    temp = null;
-                    break;
-                }
-                temp = temp.next.next;
+                prev.next = current.next;
+                current = current.next;
             }
+            
         }
+        
+        return;
     }
 
     public static void main(String[] args) {
+        // Node head = new Node(2);
+
+        // head = insertAtHead(head, 2);
+        // head = insertAtHead(head, 4);
+        // head = insertAtHead(head, 5);
+        // head = insertAtHead(head, 2);
+        // head = insertAtHead(head, 4);
         Node head = new Node(2);
 
         head = insertAtHead(head, 2);
-        head = insertAtHead(head, 4);
-        head = insertAtHead(head, 5);
         head = insertAtHead(head, 2);
-        head = insertAtHead(head, 4);
+        head = insertAtHead(head, 2);
+        head = insertAtHead(head, 2);
 
         printLL(head);
 

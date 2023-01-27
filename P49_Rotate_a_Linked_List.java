@@ -8,8 +8,7 @@ class Node {
     }
 }
 
-public class P35_Reverse_LL_in_k_groups {
-
+public class P49_Rotate_a_Linked_List {
     public static void printLL(Node head) {
         if (head == null) {
             System.out.println("Linked list is empty!!!");
@@ -39,57 +38,68 @@ public class P35_Reverse_LL_in_k_groups {
         return head;
     }
 
-    public static Node reverse(Node prev, Node current, Node next, int k){
+    public static Node reverse(Node head){
+        Node current = head;
+        Node prev = null;
+        Node next = null;
 
-        if(next == null){
-            return current;
-        }
+        while(current != null){
+            next = current.next;
 
-        int count = 0;
-
-        while(count != k && next != null){
             current.next = prev;
             prev = current;
-            current = prev;
-            next = next.next;
+            current = next;
         }
-
-        
 
         return prev;
     }
 
-    public static Node reverse_K_grp(Node head, int k){
-        if(head == null || head.next == null){
+    public static Node rotate(Node head, int k){
+        // Approach 1: By splitting the list in two parts and then swap the positions of both the lists || Time complexity O(n) || Space complexity O(1)
+        int count = 0;
+
+        Node temp1 = head;
+
+        while(temp1 != null && count != k-1){
+            temp1 = temp1.next;
+            count++;
+        }
+
+        if(temp1.next == null){
             return head;
         }
 
-        head = reverse(null, head, head.next, k);
-        
+        Node temp2 = temp1.next;
+        temp1.next = null;
+
+        Node newHead = temp2;
+
+        while(temp2.next != null){
+            temp2 = temp2.next;
+        }
+
+        temp2.next = head;
+        head = newHead;
+
         return head;
     }
 
     public static void main(String[] args) {
-        // Node head = new Node(2);
-
-        // head = insertAtHead(head, 8);
-        // head = insertAtHead(head, 2);
-        // head = insertAtHead(head, 6);
-        // head = insertAtHead(head, 6);
-        // head = insertAtHead(head, 5);
-        // head = insertAtHead(head, 3);
-        // head = insertAtHead(head, 9);
-        // head = insertAtHead(head, 9);
-        // head = insertAtHead(head, 5);
         Node head = new Node(5);
 
-        head = insertAtHead(head, 4);
+        head = insertAtHead(head, 18);
+        head = insertAtHead(head, 26);
         head = insertAtHead(head, 3);
-        head = insertAtHead(head, 2);
-        head = insertAtHead(head, 1);
+        head = insertAtHead(head, 12);
+        head = insertAtHead(head, 19);
+        head = insertAtHead(head, 6);
+        head = insertAtHead(head, 8);
+        head = insertAtHead(head, 9);
 
         printLL(head);
-        head = reverse_K_grp(head, 2);
+
+        head = rotate(head, 9);
+
         printLL(head);
     }
 }
