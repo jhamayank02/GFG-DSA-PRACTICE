@@ -2,6 +2,7 @@ import java.util.Stack;
 
 public class P58_Sort_a_stack {
 
+    // Time complexity O(n^2)
     public static void sort(Stack stack){
         // Base case
         if(stack.empty()){
