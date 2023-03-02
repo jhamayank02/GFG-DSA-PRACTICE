@@ -3,63 +3,76 @@ import java.util.Stack;
 public class P70_Decode_the_string {
 
     static String decodedString(String s){
-        Stack<Character> st = new Stack<>();
+        Stack<String> strStack = new Stack<>();
+        Stack<Integer> intStack = new Stack<>();
+        String result = new String();
 
+        // Put all the characters in the strStack and digits in the integer stack
         for(int i=0; i<s.length(); i++){
-            char currentChar = s.charAt(i);
+            char ch = s.charAt(i);
 
-            // if the current character is ], start decoding
-            if(currentChar == ']'){
+            if(ch - '0' >= 0 && ch - '0' <= 9){
+                intStack.push(ch-'0');
 
-                String temp = "";
+                // if(i<s.length()-1 && s.charAt(i+1) - '0' >= 0 && s.charAt(i+1) - '0' <= 9){
+                //      String prevDigit = String.valueOf(intStack.pop() + s.charAt(i+1));
+                //      intStack.push(prevDigit)
+                // }
+            }
+            else{
+                strStack.push(ch+"");
+            }
+        }
 
-                // Pop from the stack till the [ occurs
-                while(st.peek() != '['){
-                    temp = st.pop() + temp;
-                }
+        System.out.println(strStack);
+        System.out.println(intStack);
 
-                // Remove the [
-                st.pop();
 
-                // Count is taken as string for numbers like 11, 121. As our stack stores the elements in the form of characters i.e. count = '1' + '1'
-                String count = "";
 
-                // Conacatenate with count until the next element is a integer and stack is not empty
-                while(!st.empty() && Character.getNumericValue(st.peek()) >= 0 && Character.getNumericValue(st.peek()) <= 9){
-                    count = st.pop() + count;
-                }
+        String temp = "";
+
+        while(!strStack.empty() && !intStack.empty()){
+
+            String ch = strStack.pop();
+
+            if(ch.equals("]")){
+                // Discard it
+            }
+            else if(ch.equals("[")){
+                int count = intStack.pop();
 
                 String temp2 = "";
 
-                // Generate the string with repeations
-                for(int j=0; j<Integer.parseInt(count); j++){
-                    temp2 += temp; 
+                for(int i=0; i<count; i++){
+                    temp2 += temp;
                 }
 
-                // Push all the elements back to the stack
-                for(int j=0; j<temp2.length(); j++){
-                    st.push(temp2.charAt(j));
+                if(intStack.empty()){
+                    result = temp2;
+                    return result;
                 }
 
+                strStack.push(temp2);
+                temp = "";
             }
             else{
-                st.push(currentChar);
+                temp = ch + temp;
             }
+
         }
 
-        String result = "";
-        while(!st.empty()){
-            result = st.pop() + result;
-        }
+
 
         return result;
     }
 
     public static void main(String[] args) {
         // String str = "3[b2[ca]]";
-        // String str = "3[a3[b]1[ab]]";
-        String str = "11[geeks]";
+        String str = "3[a3[b]1[ab]]";
+        // String str = "11[geeks]";
 
         System.out.println(decodedString(str));
+        System.out.println(String.valueOf("a"));
+        System.out.println(String.valueOf("1"));
     }
 }

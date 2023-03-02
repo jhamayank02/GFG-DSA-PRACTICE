@@ -1,8 +1,35 @@
 import java.util.Stack;
 
 public class P73_Sort_a_stack {
+
+    public static void sortedInsert(Stack<Integer> s, int x){
+        if(s.empty() || s.peek() < x){
+            s.push(x);
+            return;
+        }
+
+        int val = s.pop();
+
+        sortedInsert(s, x);
+
+        s.push(val);
+    }
+
+    // Time complexity O(n^2) || Space complexity O()
+    public static void sort2(Stack<Integer> s){
+        if(s.empty()){
+            return;
+        }
+
+        int val = s.pop();
+
+        sort2(s);
+
+        sortedInsert(s, val);
+    }
+
     
-    // Time Complexity O(n^n) || Space Complexity O(n)
+    // Time Complexity O(n^2) || Space Complexity O(n)
     public static Stack<Integer> sort(Stack<Integer> s)
 	{
 		//add code here.
@@ -16,7 +43,7 @@ public class P73_Sort_a_stack {
             arr[i] = s.pop();
         }
 
-        // Time Complexity O(n^n) || Space Complexity O(1)
+        // Time Complexity O(n^2) || Space Complexity O(1)
         for(int i=0; i<arr.length; i++){
 
             for(int j=0; j<arr.length-1; j++){
@@ -48,6 +75,8 @@ public class P73_Sort_a_stack {
         s.push(2);
         s.push(11);
 
-        System.out.println(sort(s));
+        // System.out.println(sort(s));
+        sort2(s);
+        System.out.println(s);
     }
 }
