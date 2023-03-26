@@ -33,6 +33,7 @@ public class P118_K_Sum_Paths {
         return root;
     }
 
+    // Time complexity O(n*h) || Space complexity O(h)
     public static int solve(Node root, int k, int count, ArrayList<Integer> path){
         // Base case
         if(root == null){
@@ -59,13 +60,53 @@ public class P118_K_Sum_Paths {
         path.remove(size-1);
         return count;
     }
+
+    // Time complexity O(n) || Space complexity O(height)
+    public static int solve2(Node root, HashMap<Integer, Integer> map, int count, int target, int currSum){
+
+        if(root == null){
+            return count;
+        }
+
+        currSum += root.data;
+        
+        if(map.containsKey(currSum - target)){
+            count += map.get(currSum-target);
+        }
+        
+        if(map.containsKey(currSum)){
+            map.put(currSum, map.get(currSum) + 1);
+        }
+        else{
+            map.put(currSum, 1);
+        }
+
+        count = solve2(root.left, map, count, target, currSum);
+        count = solve2(root.right, map, count, target, currSum);
+        
+        if(map.get(currSum) > 1){
+            map.put(currSum, map.get(currSum) - 1);
+        }
+        else{
+            map.remove(currSum, 1);
+        }
+        
+        currSum -= root.data;
+
+        return count;
+    }
     
     public static int sumK(Node root,int k)
     {
-        // code here
-        ArrayList<Integer> path = new ArrayList<>();
+        // ArrayList<Integer> path = new ArrayList<>();
+        // int count = 0;
+        // count = solve(root, k, count, path);
+        // return count;
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
         int count = 0;
-        count = solve(root, k, count, path);
+        count = solve2(root, map, count, k, 0);
         return count;
     }
 

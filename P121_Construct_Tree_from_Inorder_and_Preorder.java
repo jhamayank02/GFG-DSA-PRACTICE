@@ -74,12 +74,12 @@ public class P121_Construct_Tree_from_Inorder_and_Preorder {
         // int N = 6;
         // int inorder[] = {3, 1, 4, 0, 5, 2};
         // int preorder[] = {0, 1, 3, 4, 2, 5};
-        // int N = 5;
-        // int inorder[] = {10, 1, 30, 40, 20};
-        // int preorder[] = {1, 10, 20, 30, 40};
-        int N = 1;
-        int inorder[] = {-1};
-        int preorder[] = {-1};
+        int N = 5;
+        int inorder[] = {10, 1, 30, 40, 20};
+        int preorder[] = {1, 10, 20, 30, 40};
+        // int N = 1;
+        // int inorder[] = {-1};
+        // int preorder[] = {-1};
         
         
 
