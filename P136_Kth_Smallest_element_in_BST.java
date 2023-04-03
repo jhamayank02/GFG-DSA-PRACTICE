@@ -34,18 +34,17 @@ public class P136_Kth_Smallest_element_in_BST {
         return solve(root.right, k);
     }
 
+    // Time complexity O(n) || Space complexity O(height)
     public static int kthSmallest(Node root, int k){
         int ans = solve(root, k);
         return ans;
     }
     
     public static void main(String[] args) {
-        Node root = new Node(4);
-        root.left = new Node(2);
-        root.right = new Node(5);
-        root.left.left = new Node(100);
-        root.left.right = new Node(3);
+        Node root = new Node(2);
+        root.left = new Node(1);
+        root.right = new Node(3);
 
-        System.out.println(kthSmallest(root, 3));
+        System.out.println(kthSmallest(root, 1));
     }
 }
