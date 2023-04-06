@@ -16,6 +16,7 @@ public class P121_Construct_Tree_from_Inorder_and_Preorder {
     public static int findPosition(int inorder[], int element, int n){
         for(int i=0; i<n; i++){
             if(inorder[i] == element){
+                inorder[i] = -1; // Change the element to -1 so that if duplicate element exists we can find them
                 return i;
             }
         }
