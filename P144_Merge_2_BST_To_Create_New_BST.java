@@ -10,7 +10,7 @@ class Node{
     }
 }
 
-public class P144_Merge_2_BST {
+public class P144_Merge_2_BST_To_Create_New_BST {
 
     // Approach 1: Time complexity O(m+n) || Space complexity O(m+n)
         /*
@@ -120,13 +120,14 @@ public class P144_Merge_2_BST {
     // Time complexity O(n) || Space complexity O(height)
     static Node prev = null;
 
-    public static Node bstIntoSortedDLL(Node root, Node head){
+    // Time complexity O(n) || Space complexity O(height)
+    public static Node BST_To_DLL(Node head, Node root){
         if(root == null){
             return head;
         }
 
-        head = bstIntoSortedDLL(root.left, head);
-
+        head = BST_To_DLL(head, root.left);
+        
         if(prev == null){
             head = root;
         }
@@ -134,62 +135,70 @@ public class P144_Merge_2_BST {
             root.left = prev;
             prev.right = root;
         }
-
         prev = root;
-        prev.right = null;
-        head = bstIntoSortedDLL(root.right, head);
 
+        
+        head = BST_To_DLL(head, root.right);
         return head;
     }
 
     // Time complexity O(m+n) || Space complexity O(1)
-    public static Node mergeTwoSortedDLL(Node head1, Node head2){
+    public static Node mergeTwoDLL(Node head1, Node head2){
+        if(head1 == null && head2 == null){
+            return null;
+        }
+        if(head1 == null){
+            return head2;
+        }
+        if(head2 == null){
+            return head1;
+        }
+
+
         Node head = null;
         Node tail = null;
 
         while(head1 != null && head2 != null){
-
             if(head1.data < head2.data){
                 if(head == null){
                     head = head1;
                     tail = head1;
-                    head1 = head1.right;
                 }
                 else{
                     tail.right = head1;
                     head1.left = tail;
-                    tail = head1;
-                    head1 = head1.right;
+                    tail = tail.right;
                 }
+                head1 = head1.right;
             }
             else{
                 if(head == null){
                     head = head2;
                     tail = head2;
-                    head2 = head2.right;
                 }
                 else{
                     tail.right = head2;
                     head2.left = tail;
-                    tail = head2;
-                    head2 = head2.right;
+                    tail = tail.right;
                 }
+                head2 = head2.right;
             }
-
         }
 
-        while(head1 != null){
+        if(head1 != null){
             tail.right = head1;
             head1.left = tail;
-            tail = head1;
+
             head1 = head1.right;
+            tail = tail.right;
         }
 
-        while(head2 != null){
+        if(head2 != null){
             tail.right = head2;
             head2.left = tail;
-            tail = head2;
+
             head2 = head2.right;
+            tail = tail.right;
         }
 
         return head;
@@ -205,19 +214,20 @@ public class P144_Merge_2_BST {
         return count;
     }
 
-    public static Node sortedDLLToBST(Node head, int n){
-        if(n <= 0 || head == null){
+    static Node DLL_head;
+    public static Node sortedDLLToBST(int n){
+        if(n <= 0 || DLL_head == null){
             return null;
         }
 
-        Node left = sortedDLLToBST(head, n/2);
+        Node left = sortedDLLToBST(n/2);
 
-        Node root = head;
+        Node root = DLL_head;
 
         root.left = left;
-        head = head.right;
+        DLL_head = DLL_head.right;
 
-        root.right = sortedDLLToBST(head, n-n/2-1);
+        root.right = sortedDLLToBST(n-n/2-1);
 
         return root;
     }
@@ -225,17 +235,17 @@ public class P144_Merge_2_BST {
     // Time complexity O(m+n) || Space complexity O(height1 + height2)
     public static Node mergeTwoBST2(Node root1, Node root2){
         Node head1 = null;
-        head1 = bstIntoSortedDLL(root1, head1);
-        // System.out.println(head1.data);
+        head1 = BST_To_DLL(head1, root1);
         prev = null; 
         Node head2 = null;
-        head2 = bstIntoSortedDLL(root2, head2);
+        head2 = BST_To_DLL(head2, root2);
 
-        Node head = mergeTwoSortedDLL(head1, head2);
+        Node head = mergeTwoDLL(head1, head2);
 
         int n = countNodes(head);
-        // System.out.println(n + " " + head1.data + " " + head2.data);
-        Node root = sortedDLLToBST(head, n);
+
+        DLL_head = head;
+        Node root = sortedDLLToBST(n);
 
         return root;
     }
@@ -255,7 +265,8 @@ public class P144_Merge_2_BST {
         // Node root = mergeTwoBST(root1, root2);
         // inOrderTraversal(root);
         Node root = mergeTwoBST2(root1, root2);
-        inOrderTraversal(root1);
-        inOrderTraversal(root2);
+        inOrderTraversal(root);
+        // inOrderTraversal(root1);
+        // inOrderTraversal(root2);
     }
 }
