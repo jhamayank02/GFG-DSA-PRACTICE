@@ -30,6 +30,7 @@ public class P161_Merge_k_Sorted_Arrays {
 
 
 //Function to merge k sorted arrays.
+// Time complexity O(k^2*logk) || Space complexity O(k^2)
 public static ArrayList<Integer> mergeKArrays(int[][] arr,int K) 
 {
     PriorityQueue<Node> pq = new PriorityQueue<>(new NodeComparator());
