@@ -93,6 +93,27 @@ class Trie{
             return;
         }
     }
+
+    public static boolean deleteUtil(TrieNode root, String word){
+        if(word.length() ==0){
+            return true;
+        }
+
+        int index = word.charAt(0) - 'A';
+        TrieNode child = root.children[index];
+
+        if(deleteUtil(child, word.substring(1, word.length()){
+            root.children[index] = null;
+        }
+        boolean otherChild
+        if(child.isTerminal == true)
+    }
+
+    public static void deleteWord(String word){
+        if(search(word)){
+            deleteUtil(root, word);
+        }
+    }
 }
 
 class Trie_Implementation{
