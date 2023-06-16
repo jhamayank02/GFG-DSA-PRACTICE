@@ -51,23 +51,75 @@ class P173_Rat_in_a_Maze_Problem_1{
             visited[x][y] = false;
         }
     }
+
+    public static void dfs(int r, int c, boolean visited[][], ArrayList<String> ans, int m[][], int n, String path){
+        
+        // Check if the row and col denotes a valid index
+        if(r < 0 || r >= n || c < 0 || c >= n){
+            return;
+        }
+        
+        // Check if there is a path or not and if the block is visited
+        if(m[r][c] == 0 || visited[r][c] == true){
+            return;
+        }
+        
+        // Mark the row and col visited
+        visited[r][c] = true;
+        
+        // Check if the rat reached the destination then add the path in the ans
+        if(r == n-1 && c == n-1){
+            ans.add(path);
+        }
+        
+        // Find paths in the alphabetical order D,L,R,U so that we don't have to sort them later
+        dfs(r+1, c, visited, ans, m, n, path+'D');
+        dfs(r, c-1, visited, ans, m, n, path+'L');
+        dfs(r, c+1, visited, ans, m, n, path+'R');
+        dfs(r-1, c, visited, ans, m, n, path+'U');
+        
+        // Mark the row and col not visited
+        visited[r][c] = false;
+    }
     
     
     public static ArrayList<String> findPath(int[][] m, int n) {
         // Time complexity O(4^n^2) || Space complexity O(n*n)
         
-        ArrayList<String> ans = new ArrayList<>();
-        boolean visited[][] = new boolean[n][n];
-        String path = "";
+        // ArrayList<String> ans = new ArrayList<>();
+        // boolean visited[][] = new boolean[n][n];
+        // String path = "";
         
-        if(m[0][0] == 0){
-            return ans;
+        // if(m[0][0] == 0){
+        //     return ans;
+        // }
+        
+        // solve(0, 0, m, n, ans, visited, path);
+        
+        
+        // return ans; 
+
+
+
+
+
+
+        // Using DFS
+        // T.C O((n^2)^4) || S.C O(No. of the paths * length of the paths)
+        boolean visited[][] = new boolean[n][n];
+        
+        // T.C O(n^2)
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                visited[i][j] = false;
+            }
         }
         
-        solve(0, 0, m, n, ans, visited, path);
+        ArrayList<String> ans = new ArrayList<>();
         
+        dfs(0, 0, visited, ans, m, n, "");
         
-        return ans; 
+        return ans;
     }
 
     public static void main(String[] args) {

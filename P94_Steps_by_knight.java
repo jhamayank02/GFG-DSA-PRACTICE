@@ -21,9 +21,11 @@ public class P94_Steps_by_knight {
         return false;
     }
 
+
     static public int minStepToReachTarget(int KnightPos[], int TargetPos[], int N)
     {
-        // Code here
+        // Using BFS
+        // T.C O(n^2) || S.C O(n^2)
         int ans = 0;
 
         // Convert 1-based indexing to 0-based indexing
