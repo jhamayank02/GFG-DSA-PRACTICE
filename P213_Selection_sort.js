@@ -2,21 +2,21 @@
 // Time complexity O(n^2) || Space complexity O(1)
 class Solution
 {
-  select(arr,i){
-     // code here such that selectionSort() sorts arr[]
-     let min = i;
-     for(let j=i; j<arr.length; j++){
+    select(arr,i){
+      // code here such that selectionSort() sorts arr[]
+      let min = i;
+      for(let j=i; j<arr.length; j++){
         if(arr[min] > arr[j]){
             min = j;
         }
-     }
-     
-     return min;
+      }
+      
+      return min;
   }
 
   //Function to sort the array using selection sort algorithm.
   selectionSort(arr,n){
-    for(let i=0; i<n; i++){
+    for(let i=0; i<n-1; i++){
         let minElem = this.select(arr, i);
         
         let temp = arr[i];
