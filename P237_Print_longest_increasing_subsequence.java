@@ -16,8 +16,8 @@ class P237_Print_longest_increasing_subsequence{
         for(int ind=0; ind<n; ind++){
             for(int prev=0; prev<ind; prev++){
 
-                if(arr[prev] < arr[ind]){
-                    dp[ind] = Math.max(dp[ind], 1 + dp[prev]);
+                if(arr[prev] < arr[ind] && dp[ind] < 1 + dp[prev]){
+                    dp[ind] = 1 + dp[prev];
                     hash[ind] = prev;
                 }
 
@@ -30,12 +30,14 @@ class P237_Print_longest_increasing_subsequence{
         }
 
         ArrayList<Integer> LIS = new ArrayList<>();
+        LIS.add(arr[lastIndex]);
 
         while(hash[lastIndex] != lastIndex){
             lastIndex = hash[lastIndex];
-            LIS.add(0, arr[lastIndex]);
+            LIS.add(arr[lastIndex]);
         }
 
+        Collections.reverse(LIS);
         System.out.println(LIS);
     }
 
