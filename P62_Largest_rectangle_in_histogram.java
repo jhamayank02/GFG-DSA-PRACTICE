@@ -42,6 +42,33 @@ public class P62_Largest_rectangle_in_histogram {
     }
     
     // Time complexity O(n) || Space complexity O(n)
+    public static int solve(int heights[], int n){
+        Stack<Integer> st = new Stack<>();
+        int maxArea = 0;
+
+        for(int i=0; i<=n; i++){
+            while(!st.isEmpty() && (i == n || heights[i] <= heights[st.peek()])){
+                int height = heights[st.peek()];
+                st.pop();
+                int width;
+                if(st.isEmpty()){
+                    width = i;
+                }
+                else{
+                    width = i - st.peek() - 1;
+                }
+                int area = height * width;
+
+                maxArea = Math.max(area, maxArea);
+            }
+
+            st.push(i);
+        }
+        
+        return maxArea;
+    }
+
+    // Time complexity O(n) || Space complexity O(n)
     public static int largestRectangularArea(ArrayList<Integer> heights){
 
         int n = heights.size();
@@ -68,7 +95,10 @@ public class P62_Largest_rectangle_in_histogram {
         }
 
         return area;
+
+        // return solve(heights, n);
     }
+
 
     public static void main(String[] args) {
         ArrayList<Integer> arr = new ArrayList<>();
