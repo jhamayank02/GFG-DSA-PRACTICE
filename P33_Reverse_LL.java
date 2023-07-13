@@ -89,9 +89,29 @@ class P33_Reverse_LL{
 
 
         // Approach 2 :- Recursive Solution Time Complexity - O(n) Space Complexity - O(n)
-        head = reverseRecursivelyLL(null, head, head.next);
+        // head = reverseRecursivelyLL(null, head, head.next);
         
-        return head;
+        // return head;
+
+
+
+
+
+        // Approach 3: By changing pointers
+        // Time complexity O(n) || Space complexity O(1)
+        Node prev = null;
+		Node next = null;
+
+		while(head != null){
+
+			next = head.next;
+			head.next = prev;
+			prev = head;
+			head = next;
+
+		}
+
+		return prev;
     }
 
     public static void main(String[] args) {
