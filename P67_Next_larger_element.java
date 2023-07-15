@@ -4,7 +4,8 @@ public class P67_Next_larger_element {
     
     public static long[] nextLargerElement(long[] arr, int n)
     { 
-        // Your code here
+        // Using stack
+        // Time complexity O(n) || Space complexity O(n)
         long ans[] = new long[n];
         Stack<Long> s = new Stack<>();
         
